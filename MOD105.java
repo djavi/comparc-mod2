@@ -33,6 +33,7 @@ import javax.swing.JRadioButton;
 import java.awt.ScrollPane;
 import java.awt.Scrollbar;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import java.awt.Color;
@@ -40,6 +41,7 @@ import java.awt.Toolkit;
 import java.lang.String;
 import java.util.Scanner;
 import java.util.regex.*;
+import javax.swing.JTable;
 
 public class MOD105 {
 	
@@ -69,6 +71,8 @@ public class MOD105 {
 	public static JPanel panel_8;
 	public static JScrollPane scrollPane;
 	public static JTextPane txtpnAvailableInstructions;
+	public static String[] cols = {"register", "data"};
+	//public static String[][] data = {{"R1", "0000 0000 0000 0000"},{"R2", "0000 0000 0000 0004"}};
 	private JFrame frmUmips;
 	
 	
@@ -108,7 +112,25 @@ public class MOD105 {
     String aBin, bBin, immBin;
     String toConv[];
     int j = 0;
+    private JPanel panel_9;
+    private JScrollPane scrollPane_5;
+    private JPanel panel_10;
+    private JScrollPane scrollPane_6;
+    private JPanel panel_11;
+    private JScrollPane scrollPane_7;
+    private JTable table;
 
+    
+    //module 2
+    public static DefaultTableModel model = new DefaultTableModel(reg, cols);
+    
+    //memory locs
+    public static String memorylocs[][] = {
+    		{"1000", "0000000000"},	{"1004", "0000000000"},
+    		{"1008", "0000000000"}, {"100C", "0000000000"},
+    		{"1010", "0000000000"},	{"1014", "0000000000"},
+    		{"1018", "0000000000"}, {"101C", "0000000000"},
+    };
 
 	/**
 	 * Launch the application.
@@ -301,6 +323,34 @@ public class MOD105 {
 		textArea_2.setEditable(false);
 		textArea_2.setWrapStyleWord(true);
 		scrollPane_3.setViewportView(textArea_2);
+		
+		panel_9 = new JPanel();
+		tabbedPane_1.addTab("registers", null, panel_9, null);
+		panel_9.setLayout(null);
+		
+		scrollPane_5 = new JScrollPane();
+		scrollPane_5.setBounds(15, 16, 589, 499);
+		panel_9.add(scrollPane_5);
+	
+		table = new JTable(model);
+		table.setRowHeight(30);
+		scrollPane_5.setViewportView(table);
+		
+		panel_10 = new JPanel();
+		panel_10.setLayout(null);
+		tabbedPane_1.addTab("memory", null, panel_10, null);
+		
+		scrollPane_6 = new JScrollPane();
+		scrollPane_6.setBounds(15, 16, 589, 499);
+		panel_10.add(scrollPane_6);
+		
+		panel_11 = new JPanel();
+		panel_11.setLayout(null);
+		tabbedPane_1.addTab("pipeline", null, panel_11, null);
+		
+		scrollPane_7 = new JScrollPane();
+		scrollPane_7.setBounds(15, 16, 589, 499);
+		panel_11.add(scrollPane_7);
 		
 		panel_2 = new JPanel();
 		tabbedPane.addTab("help", null, panel_2, null);
@@ -1088,6 +1138,7 @@ public class MOD105 {
 	
 	public String pipeline(String yes, int offset, String[] yeet){
 		
+		
 		return "test";
 	}
 	
@@ -1120,5 +1171,4 @@ public class MOD105 {
 		textArea_2.setText("");
 		resetVar();
 	}
-	
 }
