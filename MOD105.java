@@ -384,7 +384,7 @@ public class MOD105 {
 		panel_8.add(scrollPane);
 		
 		txtpnAvailableInstructions = new JTextPane();
-		txtpnAvailableInstructions.setText("available instructions:\r\n\r\nLD\r\nSD\r\nDADDIU\r\nDADDU\r\nSLT\r\nNOP\r\nBC\r\nBGEC\r\nDAUI\r\n\r\navailable registers:\r\nR0-R31");
+		txtpnAvailableInstructions.setText("available instructions:\r\nLD R1, 1000(R0)\r\nSD R1, 1000(R0)\r\nDADDIU R2, R0, #1234\r\nDADDU R2, R0, R3\r\nSLT R1, R2, R3\r\nNOP\r\nBC LABEL1\r\nBGEC LABEL 2\r\nDAUI R2, R1, #1234\r\n\r\navailable registers:\r\nR0 - R31\r\n\r\nmemory locations:\r\n0000 - 0FFF\r\n\r\ninstruction addresses:\r\n1000 - 1FFF");
 		txtpnAvailableInstructions.setFont(new Font("Monospaced", Font.PLAIN, 15));
 		txtpnAvailableInstructions.setEditable(false);
 		scrollPane.setViewportView(txtpnAvailableInstructions);
@@ -559,7 +559,8 @@ public class MOD105 {
 	        else if (breakCode[0].equals("NOP")) { 
 	        	//NOP instruction
 	            //checks 1st parameter
-	        	if(breakCode.length == 1)
+	        	//make sure its not read as LABEL
+	        	if(breakCode.length > 1)
 	            	insError = 1;
 	        }
 	        
@@ -921,6 +922,12 @@ public class MOD105 {
             int countz = -1; //ito ung layo ng label from branch
             //found label breakCode[1]
             String temp = breakCode[1] + ":";
+            int aaa = yeet.length;
+            int count_2 = offset;
+            boolean flag = false;
+            boolean negative_flag = true;
+            
+            /* my code
             while(found == 0){
             	if(yeet[offset].equals(temp)){
             		found = 1;
@@ -929,6 +936,33 @@ public class MOD105 {
             		countz++;
             	offset++;	
             }
+            */
+            
+            //miko code
+            while(found == 0){
+            	if((offset != aaa)&&(!flag)){
+            		if(yeet[offset].equals(temp)){
+            			found = 1;
+            		}
+            		else
+            			countz++;
+            		offset++;	
+            	}
+            	else{
+            		flag = true;
+            		countz = -1;
+            		while(negative_flag){
+            			if(yeet[count_2].equals(temp)){
+            				negative_flag = false;
+            				found = 1;
+            			}
+            			else
+            				countz++;
+            			count_2--;
+            		}
+            	}
+            }
+            // e o c
             
             System.out.println(countz);
             
@@ -996,6 +1030,13 @@ public class MOD105 {
             String tempA = breakCode[1].substring(1);
             String tempB = breakCode[2].substring(1);
             String temp = breakCode[3] + ":";
+            
+            int aaa = yeet.length;
+            int count_2 = offset;
+            boolean flag = false;
+            boolean negative_flag = true;
+            
+            /*
             while(found == 0){
             	if(yeet[offset].equals(temp)){
             		found = 1;
@@ -1004,6 +1045,33 @@ public class MOD105 {
             		countz++;
             	offset++;	
             }
+            */
+            
+            //miko code
+            while(found == 0){
+            	if((offset != aaa)&&(!flag)){
+            		if(yeet[offset].equals(temp)){
+            			found = 1;
+            		}
+            		else
+            			countz++;
+            		offset++;	
+            	}
+            	else{
+            		flag = true;
+            		countz = -1;
+            		while(negative_flag){
+            			if(yeet[count_2].equals(temp)){
+            				negative_flag = false;
+            				found = 1;
+            			}
+            			else
+            				countz++;
+            			count_2--;
+            		}
+            	}
+            }
+            // e o c
             
             System.out.println(countz);
             
